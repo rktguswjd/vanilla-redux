@@ -8,6 +8,8 @@ const number = document.querySelector("span");
 // reducer : data를 modify해주는 함수로 reducer가 return하는 것은 application에 있는 data가 됨
 // action : redux에서 함수를 부를 때 쓰는 두 번 째 parameter로 reducer와 소통하기 위한 방법
 // reducer에게 action을 보내는 방법: store.dispatch({key: value});
+// subscibe : store 안에 있는 변화를 감지
+number.innerHTML = 0;
 
 const countReducer = (count = 0, action) => {
     if (action.type === "ADD") {
@@ -19,10 +21,19 @@ const countReducer = (count = 0, action) => {
     }
 };
 const countStore = createStore(countReducer);
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "MINUS" });
-console.log(countStore.getState());
+
+const onChange = () => {
+    number.innerHTML = countStore.getState();
+};
+
+countStore.subscribe(onChange);
+
+const handleAdd = () => {
+    countStore.dispatch({ type: "ADD" });
+};
+const handleMinus = () => {
+    countStore.dispatch({ type: "MINUS" });
+};
+
+add.addEventListener("click", handleAdd);
+minus.addEventListener("click", handleMinus);
