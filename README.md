@@ -114,7 +114,7 @@ export default connect()(Home);
 
 -   mapStateToProps
 
-    mapStateToProps는 connect 함수에 첫 번째 인수로 들어가는 함수 혹은 객체다. mapStateToProps는 기본적으로 store가 업데이트 될때 마다 자동적으로 호출된다. 이를 원하지 않는다면 null 혹은 undefined값을 제공해야한다.
+mapStateToProps는 connect 함수에 첫 번째 인수로 들어가는 함수 혹은 객체다. mapStateToProps는 기본적으로 store가 업데이트 될때 마다 자동적으로 호출된다. 이를 원하지 않는다면 null 혹은 undefined값을 제공해야한다.
 
 ```javascript
 /* mapStateToProps의 첫 번째 인자 */
@@ -145,4 +145,22 @@ const mapStateToProps = (state, ownProps) => {
 
 // connect 첫 번째 인자로 mapStateToProps 함수를 제공
 export default connect(mapStateToProps)(Home);
+```
+
+-   mapDispatchToProps
+
+mapDispatchToProps는 connect 함수의 두 번째 인자로 사용된다. 이것은 기본적으로 store에 접근한 컴포넌트가 store의 상태를 바꾸기 위해 dispatch를 사용할 수 있게 만들어준다.
+
+```javascript
+/* mapDispatchToProps의 dispatch */
+
+// mapDispatchToProps는 첫 번째 인자로 redux의 dispatch를 인자로 사용
+// 이를 통해 store의 상태를 변경
+const mapDispatchToProps = (dispatch) => {
+    // 순수 객체 반환
+    return {
+        // 순수 action 객체를 dispatch
+        addToDo: (text) => dispatch(actionCreators.addToDo(text)),
+    };
+};
 ```
