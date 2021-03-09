@@ -113,6 +113,7 @@ export default connect()(Home);
 ```
 
 -   mapStateToProps
+
     mapStateToProps는 connect 함수에 첫 번째 인수로 들어가는 함수 혹은 객체다. mapStateToProps는 기본적으로 store가 업데이트 될때 마다 자동적으로 호출된다. 이를 원하지 않는다면 null 혹은 undefined값을 제공해야한다.
 
 ```javascript
