@@ -30,7 +30,7 @@ const Home = ({ toDos, addToDo }) => {
     );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return { toDos: state };
 };
 
