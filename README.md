@@ -164,3 +164,38 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 ```
+
+<br />
+<br />
+
+## Redux Toolkit
+
+리덕스를 사용하다보면 코드의 양이 계속 늘어나기 마련이고 그에따라 계속 복잡해진다. 리덕스 툴킷을 적용하면 코드를 상당 부분 줄일 수 있으며 쉽게 사용할 수 있다. 최근 리덕스 툴킷은 리덕스 로직 작성을 위해 redux 제작자들이 공식적으로 추천하는 방법이다.
+
+### createAction
+
+createAction은 type만 넣어주면 알아서 Action Object를 생성한다.
+
+```javascript
+const ADD = "ADD";
+const DELETE = "DELETE";
+
+const addToDo = (text) => {
+    return { type: ADD, text };
+};
+
+const deleteToDo = (id) => {
+    return { type: DELETE, id: parseInt(id) };
+};
+```
+
+다음 코드는 위 코드를 createAction을 사용해 액션 생성 함수를 만든 것이다.
+
+```javascript
+const addToDo = createAction("ADD");
+const deleteToDo = createAction("DELETE");
+
+// {type: "ADD", payload: "리덕스툴깃"}
+```
+
+위에서 만든 액션 생성 함수를 호출할 때 인자를 넣어주면 payload 필드에 자동으로 들어간다.
