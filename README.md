@@ -243,3 +243,23 @@ const reducer = createReducer([], {
 ```javascript
 const store = configureStore({ reducer });
 ```
+
+### createSlice
+
+리덕스 모듈 하나를 만들려면 action type을 정의하고, action creator를 만들고, reducer까지 만들어야 한다. createSlice는 action과 reducer 전부를 가지고 있는 함수다.
+
+```javascript
+const toDos = createSlice({
+    name: "toDosReducer",
+    initialState: [],
+    reducers: {
+        add: (state, action) => {
+            state.push({ text: action.payload, id: Date.now() });
+        },
+        remove: (state, action) =>
+            state.filter((toDo) => toDo.id !== action.payload),
+    },
+});
+```
+
+name 속성은 액션의 경로를 잡아줄 해당 이름을 나타내고, initialState는 초기 state를 나타낸다. reducer는 이전에 사용하던 action의 구분을 주어 해당 action의 로직을 수행하는 방법과 동일하다. 차이점으로는 기존에 액셩 생성 함수와 액션 타입을 선언해 사용했었다면, createSlice의 reducers 에서는 이 과정을 건너뛰고 액션을 선언하고 해당 액션이 디스패치되면 바로 state를 가지고 해당 액션을 처리한다. 즉, reducers 안의 코드들은 action type, action create function, reducer의 기능이 합쳐져 있는 셈이다.
