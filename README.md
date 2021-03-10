@@ -199,3 +199,39 @@ const deleteToDo = createAction("DELETE");
 ```
 
 위에서 만든 액션 생성 함수를 호출할 때 인자를 넣어주면 payload 필드에 자동으로 들어간다.
+
+### createAction
+
+기존 reducer을 사용할 때 switch문을 사용해 action type을 구분해 로직을 수행했다. 하지만 redux/toolkit에서는 switch문이 사라졌고, 첫 번째 인자인 initalState가 default이기에 switch문의 default 또한 필요 없다.
+
+```javascript
+// 기존 reducer
+
+const reducer = (state = [], action) => {
+    switch (action.type) {
+        case addToDo.type:
+            return [{ text: action.payload, id: Date.now() }, ...state];
+
+        case deleteToDo.type:
+            return state.filter((toDo) => toDo.id !== action.payload);
+
+        default:
+            return state;
+    }
+};
+```
+
+```javascript
+// redux/toolkit의 createReducer를 사용해 만든 reducer
+
+const reducer = createReducer([], {
+    [addToDo]: (state, action) => {
+        state.push({ text: action.payload, id: Date.now() });
+    },
+
+    [deleteToDo]: (state, action) =>
+        state.filter((toDo) => toDo.id !== action.payload),
+});
+```
+
+위 코드를 보면 createReducer로 만든 reducer는 새로운 state를 만들어 반환 하거나 state를 mutate한다. 리덕스 툴킷에서 state를 mutate해도 되는 이유는 리덕스 툴킷이 이머(immer)아래서 작동되기 때문이다. 사용자는 state를 mutate하지만 사실은 리덕스 툴킷과 이머가 현재 상태와 전달 받은 액션을 참고하여 새로운 상태를 만들어서 반환하는 것이다.
