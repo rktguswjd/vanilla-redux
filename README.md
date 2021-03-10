@@ -235,3 +235,11 @@ const reducer = createReducer([], {
 ```
 
 위 코드를 보면 createReducer로 만든 reducer는 새로운 state를 만들어 반환 하거나 state를 mutate한다. 리덕스 툴킷에서 state를 mutate해도 되는 이유는 리덕스 툴킷이 이머(immer)아래서 작동되기 때문이다. 사용자는 state를 mutate하지만 사실은 리덕스 툴킷과 이머가 현재 상태와 전달 받은 액션을 참고하여 새로운 상태를 만들어서 반환하는 것이다.
+
+### configureStore
+
+리덕스에서 createStore를 사용했던 것과는 달리 툴킷에서 configureStore를 사용한다. default로 redux dev Tool을 제공해 따로 라이브러리를 설치하거나 미들웨어로 넣어 줄 필요가 없다.
+
+```javascript
+const store = configureStore({ reducer });
+```
